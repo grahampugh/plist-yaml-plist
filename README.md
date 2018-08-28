@@ -31,4 +31,4 @@ $ ./yaml-plist.py ~/Downloads/com.something.yaml ~/Downloads/com.something.plist
 
 # Credits
 
-Elements of this sscript come from [chaimleib/ppl](https://github.com/chaimleib/ppl) and [asciidoctor/sublimetext-asciidoc](https://github.com/asciidoctor/sublimetext-asciidoc)
+Elements of these scripts come from [chaimleib/ppl](https://github.com/chaimleib/ppl) and [asciidoctor/sublimetext-asciidoc](https://github.com/asciidoctor/sublimetext-asciidoc)
