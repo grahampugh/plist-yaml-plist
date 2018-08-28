@@ -11,7 +11,7 @@ def normalize_types(input):
     operation is irreversible.  Only use if read-only access to the plist is
     required.
     """
-    if isinstance(input, Data): return input.input
+    if isinstance(input, Data): return input.data
     if isinstance(input, list):
         retval = []
         for child in input:
