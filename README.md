@@ -5,7 +5,7 @@ This utility is designed to convert Apple `plist` files to `yaml`, or `yaml` fil
 
 # Prerequisites
 
-The `pyyaml` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first.
+The python `yaml` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first.
 
 ```
 $ sudo python -m ensurepip
