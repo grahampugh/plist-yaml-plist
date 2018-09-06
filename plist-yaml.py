@@ -28,12 +28,18 @@ def normalize_types(input):
 def convert(xml):
     return yaml.dump(xml, width=float('inf'), default_flow_style=False)
 
-if len(sys.argv) < 3:
+if len(sys.argv) < 2:
     print("Usage: plist-yaml.py <input-file> <output-file>")
     sys.exit(1)
 
 in_path = sys.argv[1]
-out_path = sys.argv[2]
+
+try:
+    sys.argv[2]
+except Exception as e:
+    out_path = "%s.yaml" % in_path
+else:
+    out_path = sys.argv[2]
 
 in_file = open(in_path, 'r')
 out_file = open(out_path, 'w')
