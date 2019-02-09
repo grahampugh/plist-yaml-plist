@@ -7,26 +7,40 @@ This utility is designed to convert Apple `plist` files to `yaml`, or `yaml` fil
 
 The python `yaml` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first.
 
-```
-$ sudo python -m ensurepip
-$ pip install pyyaml
+```bash
+sudo python -m ensurepip
+pip install pyyaml
 ```
 
 # Usage
 
+If all three files are in the same folder, a single command can be used to convert in either direction:
+
+```bash
+./plistyamlplist.py -h
+Usage: ./plistyamlplist.py <input-file> [<output-file>]
 ```
-$ ./plist-yaml.py -h
+
+Otherwise, each file can be used individually:
+
+```bash
+./plist_yaml.py -h
 Usage: plist-yaml.py <input-file> [<output-file>]
 
-$ ./yaml-plist.py -h
+./yaml_plist.py -h
 Usage: yaml-plist.py <input-file> [<output-file>]
 ```
 
 **Notes:**
-  
-1. With `plist-yaml.py`, if you do not specify an `output-file` value, the `input-file` name will be appended with `.yaml` for the output file.
-2. With `yaml-plist.py`, if you do not specify an `output-file` value, and the `input-file` name ends with `.yaml`, the output file name will be the `input-file` name with `.yaml` removed.
-3. With `plist-yaml.py`, you may have to first convert a binary plist to text format using `plutil`.
+
+1. With `plistyamlplist.py`, if you do not specify an `output-file` value, the script determines if the `input-file` is 
+   a plist or yaml file. If a plist file, the `input-file` name will be appended with `.yaml` for the output file. If a 
+   yaml file, the output file name will be the `input-file` name with `.yaml` removed.
+2. With `plist_yaml.py`, if you do not specify an `output-file` value, the `input-file` name will be appended with 
+   `.yaml` for the output file.
+3. With `yaml_plist.py`, if you do not specify an `output-file` value, and the `input-file` name ends with `.yaml`, 
+   the output file name will be the `input-file` name with `.yaml` removed.
+4. With `plist_yaml.py`, you may have to first convert a binary plist to text format using `plutil`.
 
 # Examples
 
@@ -34,22 +48,22 @@ To convert a plist file to yaml:
 
 ```
 $ plutil -convert xml1 ~/Library/Preferences/com.something.plist
-$ ./plist-yaml.py ~/Library/Preferences/com.something.plist ~/Downloads/com.something.yaml
+$ ./plistyamlplist.py ~/Library/Preferences/com.something.plist ~/Downloads/com.something.yaml
 ```
 
 ```
-$ ./plist-yaml.py ~/Library/Preferences/com.something.plist
+$ ./plistyamlplist.py ~/Library/Preferences/com.something.plist
 # this will output to `~/Library/Preferences/com.something.plist.yaml'
 ```
 
 To convert a yaml file to a plist file:
 
 ```
-$ ./yaml-plist.py ~/Downloads/com.something.yaml ~/Downloads/com.something.plist
+$ ./plistyamlplist.py ~/Downloads/com.something.yaml ~/Downloads/com.something.plist
 ```
 
 ```
-$ ./yaml-plist.py ~/Downloads/com.something.plist.yaml
+$ ./plistyamlplist.py ~/Downloads/com.something.plist.yaml
 # this will output to `~/Downloads/com.something.plist'
 ```
 
