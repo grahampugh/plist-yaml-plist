@@ -67,6 +67,19 @@ $ ./plistyamlplist.py ~/Downloads/com.something.plist.yaml
 # this will output to `~/Downloads/com.something.plist'
 ```
 
+## YAML folder
+
+If you have a folder named `YAML` in your path, and you do not supply a destination, the script will determine if a 
+corresponding folder exists in the path without 'YAML'. For example, consider the following file:
+
+    /Users/myuser/gitrepo/YAML/product/com.something.plist.yaml
+    
+If the folder `/Users/myuser/gitrepo/product` exists, the converted file will be created/overwritten at: 
+
+    /Users/myuser/gitrepo/product/com.something.plist
+    
+If there is no `YAML` folder in the path, the converted file will be placed in the same folder
+
 # Credits
 
 Elements of these scripts come from [chaimleib/ppl](https://github.com/chaimleib/ppl) and [asciidoctor/sublimetext-asciidoc](https://github.com/asciidoctor/sublimetext-asciidoc)
