@@ -32,8 +32,8 @@ def normalize_types(input_data):
         return retval
     if isinstance(input_data, dict):
         retval = {}
-        for key, child in input_data.iteritems():
-            retval[key] = normalize_types(child)
+        for key in input_data:
+            retval[key] = normalize_types(input_data[key])
         return retval
     return input_data
 
