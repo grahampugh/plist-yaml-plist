@@ -17,25 +17,25 @@ from plistlib import Data, readPlist
 import yaml
 
 
-def normalize_types(input):
+def normalize_types(input_data):
     """This allows YAML and JSON to store Data fields as strings.
 
     However, this operation is irreversible. Only use if read-only
     access to the plist is required.
     """
-    if isinstance(input, Data):
-        return input.data
-    if isinstance(input, list):
+    if isinstance(input_data, Data):
+        return input_data.data
+    if isinstance(input_data, list):
         retval = []
-        for child in input:
+        for child in input_data:
             retval.append(normalize_types(child))
         return retval
-    if isinstance(input, dict):
+    if isinstance(input_data, dict):
         retval = {}
-        for key, child in input.iteritems():
+        for key, child in input_data.iteritems():
             retval[key] = normalize_types(child)
         return retval
-    return input
+    return input_data
 
 
 def convert(xml):
@@ -46,9 +46,9 @@ def convert(xml):
 def plist_yaml(in_path, out_path):
     """Convert plist to yaml."""
     in_file = open(in_path, "r")
-    input = readPlist(in_file)
+    input_data = readPlist(in_file)
 
-    normalized = normalize_types(input)
+    normalized = normalize_types(input_data)
     output = convert(normalized)
 
     out_file = open(out_path, "w")

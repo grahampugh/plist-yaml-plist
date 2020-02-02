@@ -20,9 +20,9 @@ from plistlib import writePlistToString
 import yaml
 
 
-def convert(yaml):
+def convert(data):
     """Do the conversion."""
-    lines = writePlistToString(yaml).splitlines()
+    lines = writePlistToString(data).splitlines()
     lines.append("")
     return "\n".join(lines)
 
@@ -32,8 +32,8 @@ def yaml_plist(in_path, out_path):
     in_file = open(in_path, "r")
     out_file = open(out_path, "w")
 
-    input = yaml.safe_load(in_file)
-    output = convert(input)
+    input_data = yaml.safe_load(in_file)
+    output = convert(input_data)
 
     out_file.writelines(output)
 
