@@ -13,9 +13,10 @@ taken from the input file, with .yaml added to the end.
 """
 
 import sys
-import yaml
 from os import path
-from plistlib import readPlist, Data
+from plistlib import Data, readPlist
+
+import yaml
 
 
 def normalize_types(input):

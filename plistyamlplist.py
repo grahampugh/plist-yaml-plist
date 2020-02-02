@@ -14,6 +14,7 @@ taken from the input file, with .yaml added to or taken off the end.
 
 import sys
 from os import path
+
 from plist_yaml import plist_yaml
 from yaml_plist import yaml_plist
 

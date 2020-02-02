@@ -15,9 +15,10 @@ For best results, the input file should therefore be named with
 """
 
 import sys
-import yaml
 from os import path
 from plistlib import writePlistToString
+
+import yaml
 
 
 def convert(yaml):
