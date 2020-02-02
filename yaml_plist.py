@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-If this script is run directly, it takes an input file and an output file from
-the command lineThe input file must be in YAML format.
-The output file will be in PLIST format:
+"""If this script is run directly, it takes an input file and an output file
+from the command lineThe input file must be in YAML format. The output file
+will be in PLIST format:
 
 yaml_plist.py <input-file> <output-file>
 
@@ -22,14 +21,14 @@ import yaml
 
 
 def convert(yaml):
-    """Do the conversion"""
+    """Do the conversion."""
     lines = writePlistToString(yaml).splitlines()
     lines.append("")
     return "\n".join(lines)
 
 
 def yaml_plist(in_path, out_path):
-    """Convert yaml to plist"""
+    """Convert yaml to plist."""
     in_file = open(in_path, "r")
     out_file = open(out_path, "w")
 
@@ -40,7 +39,7 @@ def yaml_plist(in_path, out_path):
 
 
 def main():
-    """Get the command line inputs if running this script directly"""
+    """Get the command line inputs if running this script directly."""
     if len(sys.argv) < 2:
         print("Usage: yaml_plist.py <input-file> <output-file>")
         sys.exit(1)

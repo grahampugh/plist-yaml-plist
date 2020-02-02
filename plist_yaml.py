@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-If this script is run directly, it takes an input file and an output file from
-the command line. The input file must be in PLIST format.
-The output file will be in YAML format:
+"""If this script is run directly, it takes an input file and an output file
+from the command line. The input file must be in PLIST format. The output file
+will be in YAML format:
 
 plist_yaml.py <input-file> <output-file>
 
@@ -20,10 +19,10 @@ import yaml
 
 
 def normalize_types(input):
-    """
-    This allows YAML and JSON to store Data fields as strings. However, this
-    operation is irreversible.  Only use if read-only access to the plist is
-    required.
+    """This allows YAML and JSON to store Data fields as strings.
+
+    However, this operation is irreversible. Only use if read-only
+    access to the plist is required.
     """
     if isinstance(input, Data):
         return input.data
@@ -41,12 +40,12 @@ def normalize_types(input):
 
 
 def convert(xml):
-    """Do the conversion"""
+    """Do the conversion."""
     return yaml.dump(xml, width=float("inf"), default_flow_style=False)
 
 
 def plist_yaml(in_path, out_path):
-    """Convert plist to yaml"""
+    """Convert plist to yaml."""
     in_file = open(in_path, "r")
     input = readPlist(in_file)
 
@@ -58,7 +57,7 @@ def plist_yaml(in_path, out_path):
 
 
 def main():
-    """Get the command line inputs if running this script directly"""
+    """Get the command line inputs if running this script directly."""
     if len(sys.argv) < 2:
         print("Usage: plist_yaml.py <input-file> <output-file>")
         sys.exit(1)

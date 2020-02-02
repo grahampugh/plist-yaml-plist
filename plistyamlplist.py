@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-If this script is run directly, it takes an input file and an output file from
-the command line. It detects if the input file is a YAML or a PLIST file,
+"""If this script is run directly, it takes an input file and an output file
+from the command line. It detects if the input file is a YAML or a PLIST file,
 and converts to the other format:
 
 plistyamlplist.py <input-file> <output-file>
@@ -20,7 +19,7 @@ from yaml_plist import yaml_plist
 
 
 def usage():
-    """print help"""
+    """print help."""
     print("Usage: plistyamlplist.py <input-file> <output-file>\n")
     print(
         "If <input-file> is a PLIST and <output-file> is omitted,\n"
@@ -33,8 +32,8 @@ def usage():
 
 
 def check_if_plist(in_path):
-    """rather than restrict by filename, check if the file is a plist by reading
-    the second line of the file for the PLIST declaration"""
+    """rather than restrict by filename, check if the file is a plist by
+    reading the second line of the file for the PLIST declaration."""
     with open(in_path) as fp:
         for i, line in enumerate(fp):
             if i == 1:
@@ -49,10 +48,13 @@ def check_if_plist(in_path):
 
 
 def check_for_yaml_folder(check_path):
-    """Check folder hierarchy for a YAML folder. Output to same folder structure outwith YAML
-    folder if it exists,
-    e.g. /path/to/YAML/folder/subfolder/my.plist.yaml ==> /path/to/folder/subfolder/my.plist
-    Note there is no reverse option at this time"""
+    """Check folder hierarchy for a YAML folder.
+
+    Output to same folder structure outwith YAML folder if it exists,
+    e.g. /path/to/YAML/folder/subfolder/my.plist.yaml ==>
+    /path/to/folder/subfolder/my.plist Note there is no reverse option
+    at this time
+    """
     check_abspath = path.abspath(check_path)
     if "YAML" in check_abspath:
         print("YAML folder exists : {}".format(check_abspath))
@@ -68,7 +70,7 @@ def check_for_yaml_folder(check_path):
 
 
 def main():
-    """get the command line inputs if running this script directly"""
+    """get the command line inputs if running this script directly."""
     if len(sys.argv) < 2:
         usage()
         exit(1)
