@@ -25,7 +25,8 @@ def normalize_types(input):
     operation is irreversible.  Only use if read-only access to the plist is
     required.
     """
-    if isinstance(input, Data): return input.data
+    if isinstance(input, Data):
+        return input.data
     if isinstance(input, list):
         retval = []
         for child in input:
@@ -41,18 +42,18 @@ def normalize_types(input):
 
 def convert(xml):
     """Do the conversion"""
-    return yaml.dump(xml, width=float('inf'), default_flow_style=False)
+    return yaml.dump(xml, width=float("inf"), default_flow_style=False)
 
 
 def plist_yaml(in_path, out_path):
     """Convert plist to yaml"""
-    in_file = open(in_path, 'r')
+    in_file = open(in_path, "r")
     input = readPlist(in_file)
 
     normalized = normalize_types(input)
     output = convert(normalized)
 
-    out_file = open(out_path, 'w')
+    out_file = open(out_path, "w")
     out_file.writelines(output)
 
 
@@ -74,5 +75,5 @@ def main():
     plist_yaml(in_path, out_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -22,10 +22,14 @@ from yaml_plist import yaml_plist
 def usage():
     """print help"""
     print("Usage: plistyamlplist.py <input-file> <output-file>\n")
-    print("If <input-file> is a PLIST and <output-file> is omitted,\n"
-          "<input-file> is converted to <input-file>.yaml\n")
-    print("If <input-file> ends in .yaml or .yml and <output-file> is omitted,\n"
-          "<input-file>.yaml is converted to PLIST format with name <input-file>\n")
+    print(
+        "If <input-file> is a PLIST and <output-file> is omitted,\n"
+        "<input-file> is converted to <input-file>.yaml\n"
+    )
+    print(
+        "If <input-file> ends in .yaml or .yml and <output-file> is omitted,\n"
+        "<input-file>.yaml is converted to PLIST format with name <input-file>\n"
+    )
 
 
 def check_if_plist(in_path):
@@ -35,7 +39,7 @@ def check_if_plist(in_path):
         for i, line in enumerate(fp):
             if i == 1:
                 # print line
-                if line.find('PLIST 1.0') == -1:
+                if line.find("PLIST 1.0") == -1:
                     is_plist = False
                 else:
                     is_plist = True
@@ -50,16 +54,16 @@ def check_for_yaml_folder(check_path):
     e.g. /path/to/YAML/folder/subfolder/my.plist.yaml ==> /path/to/folder/subfolder/my.plist
     Note there is no reverse option at this time"""
     check_abspath = path.abspath(check_path)
-    if 'YAML' in check_abspath:
-        print('YAML folder exists : {}'.format(check_abspath))
-        top_path, base_path = check_abspath.split('YAML/')
+    if "YAML" in check_abspath:
+        print("YAML folder exists : {}".format(check_abspath))
+        top_path, base_path = check_abspath.split("YAML/")
         out_path = path.dirname(path.join(top_path, base_path))
         if path.exists(out_path):
-            print('Path exists : {}'.format(out_path))
+            print("Path exists : {}".format(out_path))
             return out_path
         else:
-            print('Path does not exist : {}'.format(out_path))
-            print('Please create this folder and try again')
+            print("Path does not exist : {}".format(out_path))
+            print("Please create this folder and try again")
             exit(1)
 
 
@@ -73,7 +77,7 @@ def main():
     try:
         sys.argv[2]
     except IndexError:
-        if in_path.endswith('.yaml') or in_path.endswith('.yml'):
+        if in_path.endswith(".yaml") or in_path.endswith(".yml"):
             out_dir = check_for_yaml_folder(in_path)
             if out_dir:
                 filename, file_extension = path.splitext(path.basename(in_path))
@@ -92,7 +96,7 @@ def main():
         out_path = sys.argv[2]
 
     # auto-determine which direction the conversion should go
-    if in_path.endswith('.yaml'):
+    if in_path.endswith(".yaml"):
         yaml_plist(in_path, out_path)
     else:
         if check_if_plist(in_path):
@@ -101,8 +105,8 @@ def main():
             print("\nERROR: Input File is neither PLIST nor YAML format.\n")
             usage()
             exit(1)
-    print('Wrote to : {}'.format(out_path))
+    print("Wrote to : {}".format(out_path))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
