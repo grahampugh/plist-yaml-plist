@@ -12,7 +12,13 @@ taken from the input file, with .yaml added to the end.
 """
 
 import sys
-from plistlib import Data, readPlist
+
+try:
+    from plistlib import Data  # Python 3
+    from plistlib import load as load_plist
+except ImportError:
+    from plistlib import Data  # Python 2
+    from plistlib import readPlist as load_plist
 
 import yaml
 
@@ -45,8 +51,8 @@ def convert(xml):
 
 def plist_yaml(in_path, out_path):
     """Convert plist to yaml."""
-    in_file = open(in_path, "r")
-    input_data = readPlist(in_file)
+    with open(in_path, "rb") as in_file:
+        input_data = load_plist(in_file)
 
     normalized = normalize_types(input_data)
     output = convert(normalized)
