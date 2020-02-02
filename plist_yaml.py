@@ -12,6 +12,7 @@ taken from the input file, with .yaml added to the end.
 """
 
 import sys
+from collections import OrderedDict
 
 try:
     from plistlib import Data  # Python 3
@@ -21,6 +22,18 @@ except ImportError:
     from plistlib import readPlist as load_plist
 
 import yaml
+
+
+def represent_ordereddict(dumper, data):
+    value = []
+
+    for item_key, item_value in data.items():
+        node_key = dumper.represent_data(item_key)
+        node_value = dumper.represent_data(item_value)
+
+        value.append((node_key, node_value))
+
+    return yaml.nodes.MappingNode(u"tag:yaml.org,2002:map", value)
 
 
 def normalize_types(input_data):
@@ -46,6 +59,7 @@ def normalize_types(input_data):
 
 def convert(xml):
     """Do the conversion."""
+    yaml.add_representer(OrderedDict, represent_ordereddict)
     return yaml.dump(xml, width=float("inf"), default_flow_style=False)
 
 
