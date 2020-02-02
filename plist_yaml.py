@@ -57,6 +57,25 @@ def normalize_types(input_data):
     return input_data
 
 
+def sort_autopkg_processes(recipe):
+    """If input is an AutoPkg recipe, adjust the processor dictionaries such
+    that the Arguments key is ordered last.
+
+    This usually puts the Processor key first, which makes the process
+    list more human-readable.
+    """
+    if "Process" in recipe:
+        process = recipe["Process"]
+        new_process = []
+        for processor in process:
+            if "Arguments" in processor:
+                processor = OrderedDict(processor)
+                processor.move_to_end("Arguments")
+            new_process.append(processor)
+        recipe["Process"] = new_process
+    return recipe
+
+
 def convert(xml):
     """Do the conversion."""
     yaml.add_representer(OrderedDict, represent_ordereddict)
@@ -69,6 +88,8 @@ def plist_yaml(in_path, out_path):
         input_data = load_plist(in_file)
 
     normalized = normalize_types(input_data)
+    if sys.version_info.major == 3 and in_path.endswith((".recipe", ".recipe.plist")):
+        normalized = sort_autopkg_processes(normalized)
     output = convert(normalized)
 
     out_file = open(out_path, "w")
