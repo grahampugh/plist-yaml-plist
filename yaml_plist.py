@@ -1,9 +1,9 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-"""
-If this script is run directly, it takes an input file and an output file from
-the command lineThe input file must be in YAML format.
-The output file will be in PLIST format:
+"""If this script is run directly, it takes an input file and an output file
+from the command lineThe input file must be in YAML format. The output file
+will be in PLIST format:
 
 yaml_plist.py <input-file> <output-file>
 
@@ -14,31 +14,32 @@ For best results, the input file should therefore be named with
 """
 
 import sys
-import yaml
 from os import path
 from plistlib import writePlistToString
 
+import yaml
 
-def convert(yaml):
-    """Do the conversion"""
-    lines = writePlistToString(yaml).splitlines()
-    lines.append('')
+
+def convert(data):
+    """Do the conversion."""
+    lines = writePlistToString(data).splitlines()
+    lines.append("")
     return "\n".join(lines)
 
 
 def yaml_plist(in_path, out_path):
-    """Convert yaml to plist"""
-    in_file = open(in_path, 'r')
-    out_file = open(out_path, 'w')
+    """Convert yaml to plist."""
+    in_file = open(in_path, "r")
+    out_file = open(out_path, "w")
 
-    input = yaml.safe_load(in_file)
-    output = convert(input)
+    input_data = yaml.safe_load(in_file)
+    output = convert(input_data)
 
     out_file.writelines(output)
 
 
 def main():
-    """Get the command line inputs if running this script directly"""
+    """Get the command line inputs if running this script directly."""
     if len(sys.argv) < 2:
         print("Usage: yaml_plist.py <input-file> <output-file>")
         sys.exit(1)
@@ -47,7 +48,7 @@ def main():
     try:
         sys.argv[2]
     except Exception as e:
-        if in_path.endswith('.yaml'):
+        if in_path.endswith(".yaml"):
             filename, file_extension = path.splitext(in_path)
             out_path = filename
         else:
@@ -59,5 +60,5 @@ def main():
     yaml_plist(in_path, out_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
