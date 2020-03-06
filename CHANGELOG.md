@@ -14,5 +14,5 @@ All notable changes to this project will be documented in this file. This projec
 
 - Initial Release (though the tool has been around for some time).
 
-[unreleased]: https://github.com/grahampugh/plistyamlplist/compare/v0.2...HEAD
-[v0.2]: https://github.com/grahampugh/plistyamlplist/compare/v0.1...v0.2
+[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.2...HEAD
+[v0.2]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.1...v0.2
