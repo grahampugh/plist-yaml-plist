@@ -13,7 +13,6 @@ taken from the input file, with .yaml added to the end.
 
 import sys
 import yaml
-from os import path
 from plistlib import readPlist, Data
 
 

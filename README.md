@@ -14,10 +14,10 @@ pip install pyyaml
 
 # Usage
 
-If all three files are in the same folder, a single command can be used to convert in either direction:
+A single command can be used to convert from plist to yaml or from yaml to plist. This depends on the file suffices being predictable:
 
 ```bash
-./plistyamlplist.py -h
+plistyamlplist -h
 Usage: ./plistyamlplist.py <input-file> [<output-file>]
 ```
 
@@ -69,17 +69,21 @@ $ ./plistyamlplist.py ~/Downloads/com.something.plist.yaml
 
 ## YAML folder
 
-If you have a folder named `YAML` in your path, and you do not supply a destination, the script will determine if a 
-corresponding folder exists in the path without 'YAML'. For example, consider the following file:
+If you have a folder named `YAML` in your path, and you do not supply a destination, the script 
+will determine if a corresponding folder exists in the path without 'YAML'. For example, consider the following file:
 
     /Users/myuser/gitrepo/YAML/product/com.something.plist.yaml
     
 If the folder `/Users/myuser/gitrepo/product` exists, the converted file will be created/overwritten at: 
 
     /Users/myuser/gitrepo/product/com.something.plist
+
+If the above folder does not exist, you will be prompted to create it.
     
-If there is no `YAML` folder in the path, the converted file will be placed in the same folder
+If there is no `YAML` folder in the path, the converted file will be placed in the same folder.
 
 # Credits
 
-Elements of these scripts come from [chaimleib/ppl](https://github.com/chaimleib/ppl) and [asciidoctor/sublimetext-asciidoc](https://github.com/asciidoctor/sublimetext-asciidoc)
+Elements of these scripts come from: 
+* [chaimleib/ppl](https://github.com/chaimleib/ppl) 
+* [asciidoctor/sublimetext-asciidoc](https://github.com/asciidoctor/sublimetext-asciidoc)
