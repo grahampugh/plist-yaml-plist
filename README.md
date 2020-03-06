@@ -33,12 +33,12 @@ Usage: yaml-plist.py <input-file> [<output-file>]
 
 **Notes:**
 
-1. With `plistyamlplist.py`, if you do not specify an `output-file` value, the script determines if the `input-file` is 
-   a plist or yaml file. If a plist file, the `input-file` name will be appended with `.yaml` for the output file. If a 
+1. With `plistyamlplist.py`, if you do not specify an `output-file` value, the script determines if the `input-file` is
+   a plist or yaml file. If a plist file, the `input-file` name will be appended with `.yaml` for the output file. If a
    yaml file, the output file name will be the `input-file` name with `.yaml` removed.
-2. With `plist_yaml.py`, if you do not specify an `output-file` value, the `input-file` name will be appended with 
+2. With `plist_yaml.py`, if you do not specify an `output-file` value, the `input-file` name will be appended with
    `.yaml` for the output file.
-3. With `yaml_plist.py`, if you do not specify an `output-file` value, and the `input-file` name ends with `.yaml`, 
+3. With `yaml_plist.py`, if you do not specify an `output-file` value, and the `input-file` name ends with `.yaml`,
    the output file name will be the `input-file` name with `.yaml` removed.
 4. With `plist_yaml.py`, you may have to first convert a binary plist to text format using `plutil`.
 
@@ -73,8 +73,8 @@ If you have a folder named `YAML` in your path, and you do not supply a destinat
 will determine if a corresponding folder exists in the path without 'YAML'. For example, consider the following file:
 
     /Users/myuser/gitrepo/YAML/product/com.something.plist.yaml
-    
-If the folder `/Users/myuser/gitrepo/product` exists, the converted file will be created/overwritten at: 
+
+If the folder `/Users/myuser/gitrepo/product` exists, the converted file will be created/overwritten at:
 
     /Users/myuser/gitrepo/product/com.something.plist
 

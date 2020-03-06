@@ -1,8 +1,8 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-"""
-If this script is run directly, it takes an input file and an output file from
-the command line. It detects if the input file is a YAML or a PLIST file,
+"""If this script is run directly, it takes an input file and an output file
+from the command line. It detects if the input file is a YAML or a PLIST file,
 and converts to the other format:
 
 plistyamlplist.py <input-file> <output-file>
@@ -19,22 +19,26 @@ from plistyamlplist_lib.yaml_plist import yaml_plist
 
 
 def usage():
-    """print help"""
+    """print help."""
     print("Usage: plistyamlplist.py <input-file> <output-file>\n")
-    print("If <input-file> is a PLIST and <output-file> is omitted,\n"
-          "<input-file> is converted to <input-file>.yaml\n")
-    print("If <input-file> ends in .yaml or .yml and <output-file> is omitted,\n"
-          "<input-file>.yaml is converted to PLIST format with name <input-file>\n")
+    print(
+        "If <input-file> is a PLIST and <output-file> is omitted,\n"
+        "<input-file> is converted to <input-file>.yaml\n"
+    )
+    print(
+        "If <input-file> ends in .yaml or .yml and <output-file> is omitted,\n"
+        "<input-file>.yaml is converted to PLIST format with name <input-file>\n"
+    )
 
 
 def check_if_plist(in_path):
-    """rather than restrict by filename, check if the file is a plist by reading
-    the second line of the file for the PLIST declaration"""
+    """rather than restrict by filename, check if the file is a plist by
+    reading the second line of the file for the PLIST declaration."""
     with open(in_path) as fp:
         for i, line in enumerate(fp):
             if i == 1:
                 # print line
-                if line.find('PLIST 1.0') == -1:
+                if line.find("PLIST 1.0") == -1:
                     is_plist = False
                 else:
                     is_plist = True
@@ -57,13 +61,13 @@ def check_for_yaml_folder(check_path):
             print('Path exists : {}'.format(out_path))
             return out_path
         else:
-            print('Path does not exist : {}'.format(out_path))
-            print('Please create this folder and try again')
+            print("Path does not exist : {}".format(out_path))
+            print("Please create this folder and try again")
             exit(1)
 
 
 def main():
-    """get the command line inputs if running this script directly"""
+    """get the command line inputs if running this script directly."""
     if len(sys.argv) < 2:
         usage()
         exit(1)
@@ -72,7 +76,7 @@ def main():
     try:
         sys.argv[2]
     except IndexError:
-        if in_path.endswith('.yaml') or in_path.endswith('.yml'):
+        if in_path.endswith(".yaml") or in_path.endswith(".yml"):
             out_dir = check_for_yaml_folder(in_path)
             if out_dir:
                 filename, file_extension = os.path.splitext(os.path.basename(in_path))
@@ -91,7 +95,7 @@ def main():
         out_path = sys.argv[2]
 
     # auto-determine which direction the conversion should go
-    if in_path.endswith('.yaml'):
+    if in_path.endswith(".yaml"):
         yaml_plist(in_path, out_path)
     else:
         if check_if_plist(in_path):
@@ -100,8 +104,8 @@ def main():
             print("\nERROR: Input File is neither PLIST nor YAML format.\n")
             usage()
             exit(1)
-    print('Wrote to : {}'.format(out_path))
+    print("Wrote to : {}".format(out_path))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
