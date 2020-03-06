@@ -14,7 +14,9 @@ For best results, the input file should therefore be named with
 """
 
 import sys
-from os import path
+import yaml
+import os.path
+
 from plistlib import writePlistToString
 
 import yaml
@@ -48,8 +50,8 @@ def main():
     try:
         sys.argv[2]
     except Exception as e:
-        if in_path.endswith(".yaml"):
-            filename, file_extension = path.splitext(in_path)
+        if in_path.endswith('.yaml'):
+            filename, file_extension = os.path.splitext(in_path)
             out_path = filename
         else:
             print("Usage: yaml_plist.py <input-file> <output-file>")

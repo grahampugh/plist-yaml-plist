@@ -12,10 +12,10 @@ taken from the input file, with .yaml added to or taken off the end.
 """
 
 import sys
-from os import path
+import os.path
 
-from plist_yaml import plist_yaml
-from yaml_plist import yaml_plist
+from plistyamlplist_lib.plist_yaml import plist_yaml
+from plistyamlplist_lib.yaml_plist import yaml_plist
 
 
 def usage():
@@ -48,20 +48,17 @@ def check_if_plist(in_path):
 
 
 def check_for_yaml_folder(check_path):
-    """Check folder hierarchy for a YAML folder.
-
-    Output to same folder structure outwith YAML folder if it exists,
-    e.g. /path/to/YAML/folder/subfolder/my.plist.yaml ==>
-    /path/to/folder/subfolder/my.plist Note there is no reverse option
-    at this time
-    """
-    check_abspath = path.abspath(check_path)
-    if "YAML" in check_abspath:
-        print("YAML folder exists : {}".format(check_abspath))
-        top_path, base_path = check_abspath.split("YAML/")
-        out_path = path.dirname(path.join(top_path, base_path))
-        if path.exists(out_path):
-            print("Path exists : {}".format(out_path))
+    """Check folder hierarchy for a YAML folder. Output to same folder structure outwith YAML
+    folder if it exists,
+    e.g. /path/to/YAML/folder/subfolder/my.plist.yaml ==> /path/to/folder/subfolder/my.plist
+    Note there is no reverse option at this time"""
+    check_abspath = os.path.abspath(check_path)
+    if 'YAML' in check_abspath:
+        print('YAML folder exists : {}'.format(check_abspath))
+        top_path, base_path = check_abspath.split('YAML/')
+        out_path = os.path.dirname(os.path.join(top_path, base_path))
+        if os.path.exists(out_path):
+            print('Path exists : {}'.format(out_path))
             return out_path
         else:
             print("Path does not exist : {}".format(out_path))
@@ -82,10 +79,10 @@ def main():
         if in_path.endswith(".yaml") or in_path.endswith(".yml"):
             out_dir = check_for_yaml_folder(in_path)
             if out_dir:
-                filename, file_extension = path.splitext(path.basename(in_path))
-                out_path = path.join(out_dir, filename)
+                filename, file_extension = os.path.splitext(os.path.basename(in_path))
+                out_path = os.path.join(out_dir, filename)
             else:
-                filename, file_extension = path.splitext(path.abspath(in_path))
+                filename, file_extension = os.path.splitext(os.path.abspath(in_path))
                 out_path = filename
         else:
             if check_if_plist(in_path):
