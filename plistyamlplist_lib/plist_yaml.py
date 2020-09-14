@@ -94,6 +94,7 @@ def plist_yaml(in_path, out_path):
 
     out_file = open(out_path, "w")
     out_file.writelines(output)
+    print("Wrote to : {}\n".format(out_path))
 
 
 def main():

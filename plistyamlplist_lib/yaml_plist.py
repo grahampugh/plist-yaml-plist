@@ -17,27 +17,38 @@ import sys
 import yaml
 import os.path
 
-from plistlib import writePlistToString
-
+try:  # python 3
+    from plistlib import dumps as write_plist
+except ImportError:  # python 2
+    from plistlib import writePlistToString as write_plist
 import yaml
 
 
 def convert(data):
     """Do the conversion."""
-    lines = writePlistToString(data).splitlines()
+    lines = write_plist(data).splitlines()
     lines.append("")
     return "\n".join(lines)
 
 
 def yaml_plist(in_path, out_path):
     """Convert yaml to plist."""
-    in_file = open(in_path, "r")
-    out_file = open(out_path, "w")
+    try:
+        in_file = open(in_path, "r")
+    except IOError:
+        print("ERROR: {} not found".format(in_path))
+        return
+    try:
+        out_file = open(out_path, "w")
+    except IOError:
+        print("ERROR: could not create {} ".format(out_path))
+        return
 
     input_data = yaml.safe_load(in_file)
     output = convert(input_data)
 
     out_file.writelines(output)
+    print("Wrote to : {}\n".format(out_path))
 
 
 def main():
@@ -50,8 +61,8 @@ def main():
     try:
         sys.argv[2]
     except Exception as e:
-        if in_path.endswith('.yaml'):
-            filename, file_extension = os.path.splitext(in_path)
+        if in_path.endswith(".yaml"):
+            filename, _ = os.path.splitext(in_path)
             out_path = filename
         else:
             print("Usage: yaml_plist.py <input-file> <output-file>")

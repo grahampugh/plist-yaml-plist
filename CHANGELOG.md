@@ -4,15 +4,22 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [unreleased]
 
+## [v0.3] - 2020-09-14 - v0.3
+
+- Added the ability to convert an entire directory of `.yaml` files at once using the syntax:
+
+  ```
+  plistyamlplist /path/to/YAML/\*.yaml
+  ```
 
 ## [v0.2] - 2020-03-06 - v0.2
 
 - Merged in changes from @homebysix.
 
-
 ## v0.1 - 2020-03-06 - v0.1
 
 - Initial Release (though the tool has been around for some time).
 
-[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.2...HEAD
+[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.3...HEAD
+[v0.3]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.2...v0.3
 [v0.2]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.1...v0.2
