@@ -2,7 +2,7 @@ CURDIR := $(shell pwd)
 MUNKIPKG := /usr/local/bin/munkipkg
 PKG_ROOT := $(CURDIR)/pkg/plistyamlplist/payload
 PKG_BUILD := $(CURDIR)/pkg/plistyamlplist/build
-PKG_VERSION := $(shell defaults read $(CURDIR)/pkg/jss_helper/build-info.plist version)
+PKG_VERSION := $(shell defaults read $(CURDIR)/pkg/plistyamlplist/build-info.plist version)
 
 objects = $(PKG_ROOT)/usr/local/bin/plistyamlplist \
 	$(PKG_ROOT)/usr/local/bin/plistyamlplist_lib
