@@ -50,22 +50,24 @@ def check_if_plist(in_path):
 
 
 def check_for_yaml_folder(check_path):
-    """Check folder hierarchy for a YAML folder. Output to same folder structure outwith YAML
+    """Check folder hierarchy for a YAML or _YAML folder. Output to same folder structure outwith YAML
     folder if it exists,
     e.g. /path/to/YAML/folder/subfolder/my.plist.yaml ==> /path/to/folder/subfolder/my.plist
     Note there is no reverse option at this time"""
     check_abspath = os.path.abspath(check_path)
-    if "YAML" in check_abspath:
-        print("YAML folder exists : {}".format(check_abspath))
-        top_path, base_path = check_abspath.split("YAML/")
-        out_path = os.path.dirname(os.path.join(top_path, base_path))
-        if os.path.exists(out_path):
-            print("Path exists : {}".format(out_path))
-            return out_path
-        else:
-            print("Path does not exist : {}".format(out_path))
-            print("Please create this folder and try again")
-            exit(1)
+    yaml_folders = ["_YAML", "YAML"]
+    for yf in yaml_folders:
+        if yf in check_abspath:
+            print("{} folder exists : {}".format(yf, check_abspath))
+            top_path, base_path = check_abspath.split("{}/".format(yf))
+            out_path = os.path.dirname(os.path.join(top_path, base_path))
+            if os.path.exists(out_path):
+                print("Path exists : {}".format(out_path))
+                return out_path
+            else:
+                print("Path does not exist : {}".format(out_path))
+                print("Please create this folder and try again")
+                exit(1)
 
 
 def get_out_path(in_path):
@@ -113,6 +115,13 @@ def main():
             else:
                 out_path = sys.argv[2]
             yaml_plist(in_path, out_path)
+    # allow for converting whole folders if 'YAML' is in the path and the path supplied
+    # is a folder
+    elif os.path.isdir(in_path) and "YAML" in in_path:
+        for in_file in os.listdir(in_path):
+            in_file_path = os.path.join(in_path, in_file)
+            out_path = get_out_path(in_file_path)
+            yaml_plist(in_file_path, out_path)
     else:
         if check_if_plist(in_path):
             try:

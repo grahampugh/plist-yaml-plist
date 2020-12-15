@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [unreleased]
 
+## [v0.3.1] - 2020-12-15 - v0.3.1
+
+- Add the ability to just reference a folder if `YAML` is in the path.
+- You can now use `_YAML` as well as `YAML` for the folder.
+
 ## [v0.3] - 2020-09-14 - v0.3
 
 - Added the ability to convert an entire directory of `.yaml` files at once using the syntax:

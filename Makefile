@@ -14,6 +14,7 @@ default : $(PKG_BUILD)/plistyamlplist-$(PKG_VERSION).pkg
 
 $(PKG_BUILD)/plistyamlplist-$(PKG_VERSION).pkg: $(objects)
 	cd $(CURDIR)/pkg && $(MUNKIPKG) plistyamlplist
+	open $(CURDIR)/pkg/plistyamlplist/build
 
 
 $(PKG_ROOT)/usr/local/bin/plistyamlplist:
