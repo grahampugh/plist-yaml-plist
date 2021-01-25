@@ -23,17 +23,31 @@ except ImportError:  # python 2
     from plistlib import writePlistToString as write_plist
 
 
+def clean_nones(value):
+    """
+    Recursively remove all None values from dictionaries and lists, and returns
+    the result as a new dictionary or list.
+    https://stackoverflow.com/questions/4255400/exclude-empty-null-values-from-json-serialization
+    """
+    if isinstance(value, list):
+        return [clean_nones(x) for x in value if x is not None]
+    elif isinstance(value, dict):
+        return {key: clean_nones(val) for key, val in value.items() if val is not None}
+    else:
+        return value
+
+
 def convert(data):
-    """Do the conversion."""
-    lines = write_plist(data).splitlines()
-    lines.append("")
-    return "\n".join(lines)
+    """Do the conversion"""
+    data = clean_nones(data)
+    return write_plist(data).decode()
 
 
 def json_plist(in_path, out_path):
     """Convert json to plist."""
     try:
-        in_file = open(in_path, "r")
+        with open(in_path, "r") as fp:
+            input_data = json.load(fp)
     except IOError:
         print("ERROR: {} not found".format(in_path))
         return
@@ -43,7 +57,6 @@ def json_plist(in_path, out_path):
         print("ERROR: could not create {} ".format(out_path))
         return
 
-    input_data = json.load(in_file)
     output = convert(input_data)
 
     out_file.writelines(output)
