@@ -4,11 +4,12 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [unreleased]
 
-## [v0.4.0] - 2020-12-15 - v0.4.0
+## [v0.4.0] - 2021-02-10 - v0.4.0
 
 - You can now use this tool to convert `json` > `plist`. Note that the `plist` format do not accept `null`/`None` values, so this script will extract any keys with `null`/`None` values before converting.
 - Add the ability to just reference a folder if `JSON` is in the path.
 - You can now use `_JSON` as well as `JSON` for the folder.
+- `pyyaml` is installed automatically if not already installed.
 
 ## [v0.3.1] - 2020-12-15 - v0.3.1
 
