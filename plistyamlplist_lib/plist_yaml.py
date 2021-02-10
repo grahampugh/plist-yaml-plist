@@ -11,6 +11,7 @@ The output file can be omitted. In this case, the name of the output file is
 taken from the input file, with .yaml added to the end.
 """
 
+import subprocess
 import sys
 from collections import OrderedDict
 
@@ -21,7 +22,12 @@ except ImportError:
     from plistlib import Data  # Python 2
     from plistlib import readPlist as load_plist
 
-import yaml
+try:
+    import yaml
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyyaml", "--user"])
+    import yaml
 
 
 def represent_ordereddict(dumper, data):
@@ -107,7 +113,7 @@ def main():
 
     try:
         sys.argv[2]
-    except Exception as e:
+    except Exception:
         out_path = "%s.yaml" % in_path
     else:
         out_path = sys.argv[2]

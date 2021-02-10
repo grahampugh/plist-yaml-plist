@@ -102,7 +102,7 @@ def get_out_path(in_path, filetype):
         else:
             filename, _ = os.path.splitext(os.path.abspath(in_path))
             out_path = filename
-    if filetype == "json":
+    elif filetype == "json":
         out_dir = check_for_json_folder(in_path)
         if out_dir:
             filename, _ = os.path.splitext(os.path.basename(in_path))
@@ -146,8 +146,10 @@ def main():
             for glob_file in glob_files:
                 out_path = get_out_path(glob_file, filetype)
                 if filetype == "yaml":
+                    print("Processing YAML folder with globs...")
                     yaml_plist(glob_file, out_path)
                 elif filetype == "json":
+                    print("Processing JSON folder with globs...")
                     json_plist(glob_file, out_path)
         else:
             try:
@@ -157,17 +159,23 @@ def main():
             else:
                 out_path = sys.argv[2]
             if filetype == "yaml":
+                print("Processing yaml file...")
                 yaml_plist(in_path, out_path)
             elif filetype == "json":
+                print("Processing json file...")
                 json_plist(in_path, out_path)
     # allow for converting whole folders if 'YAML' or 'JSON' is in the path
     # and the path supplied is a folder
     elif os.path.isdir(in_path) and "YAML" in in_path:
+        print("Processing YAML folder...")
+        filetype = "yaml"
         for in_file in os.listdir(in_path):
             in_file_path = os.path.join(in_path, in_file)
             out_path = get_out_path(in_file_path, filetype)
             yaml_plist(in_file_path, out_path)
     elif os.path.isdir(in_path) and "JSON" in in_path:
+        print("Processing JSON folder...")
+        filetype = "json"
         for in_file in os.listdir(in_path):
             in_file_path = os.path.join(in_path, in_file)
             out_path = get_out_path(in_file_path, filetype)
@@ -180,6 +188,7 @@ def main():
                 out_path = get_out_path(in_path, filetype)
             else:
                 out_path = sys.argv[2]
+            print("Processing plist file...")
             plist_yaml(in_path, out_path)
         else:
             print("\nERROR: Input File is not PLIST, JSON or YAML format.\n")

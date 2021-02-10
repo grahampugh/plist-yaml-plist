@@ -13,15 +13,21 @@ taken from the input file, with .yaml removed from the end.
 For best results, the input file should therefore be named with
 """
 
+import subprocess
 import sys
-import yaml
 import os.path
 
 try:  # python 3
     from plistlib import dumps as write_plist
 except ImportError:  # python 2
     from plistlib import writePlistToString as write_plist
-import yaml
+
+try:
+    import yaml
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyyaml", "--user"])
+    import yaml
 
 
 def convert(data):
@@ -60,7 +66,7 @@ def main():
     in_path = sys.argv[1]
     try:
         sys.argv[2]
-    except Exception as e:
+    except Exception:
         if in_path.endswith(".yaml"):
             filename, _ = os.path.splitext(in_path)
             out_path = filename
