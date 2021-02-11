@@ -23,11 +23,24 @@ except ImportError:
     from plistlib import readPlist as load_plist
 
 try:
-    import yaml
+    from ruamel import yaml
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyyaml", "--user"])
-    import yaml
+    subprocess.check_call(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "-U",
+            "pip",
+            "setuptools",
+            "wheel",
+            "ruamel",
+            "--user",
+        ]
+    )
+    from ruamel import yaml
 
 
 def represent_ordereddict(dumper, data):

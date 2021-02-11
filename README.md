@@ -6,12 +6,14 @@ It can also convert `json` files to `plist`.
 
 ## Prerequisites
 
-The python `yaml` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first.
+The python `ruamel` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first.
 
 ```bash
-sudo python -m ensurepip
-pip install ruamel
+python -m ensurepip --user
+python -m pip install ruamel --user
 ```
+
+If you do not pre-install `ruamel`, the script will do it for you.
 
 ## Usage
 

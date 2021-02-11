@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [unreleased]
 
+## [v0.5.0] - 2021-02-11 - v0.5.0
+
+- Switched from `pyyaml` to `ruamel`.
+
 ## [v0.4.0] - 2021-02-10 - v0.4.0
 
 - You can now use this tool to convert `json` > `plist`. Note that the `plist` format do not accept `null`/`None` values, so this script will extract any keys with `null`/`None` values before converting.
@@ -32,7 +36,8 @@ All notable changes to this project will be documented in this file. This projec
 
 - Initial Release (though the tool has been around for some time).
 
-[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.4.0...HEAD
+[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.5.0...HEAD
+[v0.5.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.3.1...v0.4.0
 [v0.3.1]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.3...v0.3.1
 [v0.3]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.2...v0.3

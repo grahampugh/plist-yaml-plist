@@ -23,11 +23,24 @@ except ImportError:  # python 2
     from plistlib import writePlistToString as write_plist
 
 try:
-    import yaml
+    from ruamel import yaml
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyyaml", "--user"])
-    import yaml
+    subprocess.check_call(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "-U",
+            "pip",
+            "setuptools",
+            "wheel",
+            "ruamel",
+            "--user",
+        ]
+    )
+    from ruamel import yaml
 
 
 def convert(data):
