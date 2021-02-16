@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [v0.5.0] - 2021-02-11 - v0.5.0
 
-- Switched from `pyyaml` to `ruamel`.
+- Switched from `pyyaml` to `ruamel.yaml`.
 
 ## [v0.4.0] - 2021-02-10 - v0.4.0
 
