@@ -13,6 +13,7 @@ taken from the input file, with .yaml added to the end.
 
 import subprocess
 import sys
+
 from collections import OrderedDict
 
 try:
@@ -23,7 +24,9 @@ except ImportError:
     from plistlib import readPlist as load_plist
 
 try:
-    from ruamel import yaml
+    from ruamel.yaml import dump
+    from ruamel.yaml import add_representer
+    from ruamel.yaml.nodes import MappingNode
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
     subprocess.check_call(
@@ -40,7 +43,11 @@ except ImportError:
             "--user",
         ]
     )
-    from ruamel import yaml
+    from ruamel.yaml import dump
+    from ruamel.yaml import add_representer
+    from ruamel.yaml.nodes import MappingNode
+
+from . import handle_autopkg_recipes
 
 
 def represent_ordereddict(dumper, data):
@@ -52,7 +59,7 @@ def represent_ordereddict(dumper, data):
 
         value.append((node_key, node_value))
 
-    return yaml.nodes.MappingNode("tag:yaml.org,2002:map", value)
+    return MappingNode("tag:yaml.org,2002:map", value)
 
 
 def normalize_types(input_data):
@@ -76,44 +83,10 @@ def normalize_types(input_data):
     return input_data
 
 
-def sort_autopkg_processes(recipe):
-    """If input is an AutoPkg recipe, adjust the processor dictionaries such
-    that the Arguments key is ordered last.
-
-    This usually puts the Processor key first, which makes the process
-    list more human-readable.
-    """
-    print("Reordering %s" % recipe)
-    if "Process" in recipe:
-        process = recipe["Process"]
-        new_process = []
-        for processor in process:
-            if "Arguments" in processor:
-                processor = OrderedDict(processor)
-                processor.move_to_end("Arguments")
-            new_process.append(processor)
-        recipe["Process"] = new_process
-
-    # now reorder the recipe items
-    desired_order = [
-        "Comment",
-        "Description",
-        "Identifier",
-        "ParentRecipe",
-        "MinimumVersion",
-        "Input",
-        "Process",
-    ]
-    reordered_recipe = {k: recipe[k] for k in desired_order}
-    print(reordered_recipe)
-
-    return recipe
-
-
 def convert(xml):
     """Do the conversion."""
-    yaml.add_representer(OrderedDict, represent_ordereddict)
-    return yaml.dump(xml, width=float("inf"), default_flow_style=False)
+    add_representer(OrderedDict, represent_ordereddict)
+    return dump(xml, width=float("inf"), default_flow_style=False)
 
 
 def plist_yaml(in_path, out_path):
@@ -122,9 +95,14 @@ def plist_yaml(in_path, out_path):
         input_data = load_plist(in_file)
 
     normalized = normalize_types(input_data)
+
+    # handle conversion of AutoPkg recipes
     if sys.version_info.major == 3 and in_path.endswith((".recipe", ".recipe.plist")):
-        normalized = sort_autopkg_processes(normalized)
-    output = convert(normalized)
+        normalized = handle_autopkg_recipes.optimise_autopkg_recipes(normalized)
+        output = convert(normalized)
+        output = handle_autopkg_recipes.format_autopkg_recipes(output)
+    else:
+        output = convert(normalized)
 
     out_file = open(out_path, "w")
     out_file.writelines(output)
