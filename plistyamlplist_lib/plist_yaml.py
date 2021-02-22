@@ -52,7 +52,7 @@ def represent_ordereddict(dumper, data):
 
         value.append((node_key, node_value))
 
-    return yaml.nodes.MappingNode(u"tag:yaml.org,2002:map", value)
+    return yaml.nodes.MappingNode("tag:yaml.org,2002:map", value)
 
 
 def normalize_types(input_data):
@@ -83,6 +83,7 @@ def sort_autopkg_processes(recipe):
     This usually puts the Processor key first, which makes the process
     list more human-readable.
     """
+    print("Reordering %s" % recipe)
     if "Process" in recipe:
         process = recipe["Process"]
         new_process = []
@@ -92,6 +93,20 @@ def sort_autopkg_processes(recipe):
                 processor.move_to_end("Arguments")
             new_process.append(processor)
         recipe["Process"] = new_process
+
+    # now reorder the recipe items
+    desired_order = [
+        "Comment",
+        "Description",
+        "Identifier",
+        "ParentRecipe",
+        "MinimumVersion",
+        "Input",
+        "Process",
+    ]
+    reordered_recipe = {k: recipe[k] for k in desired_order}
+    print(reordered_recipe)
+
     return recipe
 
 
