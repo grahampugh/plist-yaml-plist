@@ -36,7 +36,7 @@ except ImportError:
             "pip",
             "setuptools",
             "wheel",
-            "ruamel",
+            "ruamel.yaml",
             "--user",
         ]
     )
