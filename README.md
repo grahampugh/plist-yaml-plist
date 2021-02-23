@@ -24,7 +24,7 @@ plistyamlplist -h
 Usage: ./plistyamlplist.py <input-file> [<output-file>]
 ```
 
-You can supply the input-file as a glob (`*.yaml` or `*.json`) to convert an entire directory or subset of `yaml` or `json` files. This currently only work for converting from yaml to plist. Note that you have to escape the glob, i.e. write as `plistyamlplist /path/to/\*.yaml`.
+You can supply the input-file as a glob (`*.yaml` or `*.json`) to convert an entire directory or subset of `yaml` or `json` files. This currently only work for converting from yaml to plist. Note that you have to escape the glob, i.e. write as `plistyamlplist /path/to/\*.yaml`. Or, just supply a folder. The folder must be `_YAML` or `YAML` or a subfolder of one of these.
 Otherwise, each file can be used individually:
 
 ```bash
@@ -84,6 +84,38 @@ If the folder `/Users/myuser/gitrepo/product` exists, the converted file will be
 If the above folder does not exist, you will be prompted to create it.
 
 If there is no `YAML`/`JSON` folder in the path, the converted file will be placed in the same folder.
+
+## Special handling of AutoPkg recipes
+
+If you convert an AutoPkg recipe from `plist` to `yaml`, the following formatting is carried out:
+
+- The different process dictionaries are ordered by Processor, Comment, Arguments (python3 only).
+- The Input dictionary is ordered such that NAME is always at the top (python3 only).
+- The items are ordered thus: Comment, Description, Identifier, ParentRecipe, MinimumVersion, Input, Process (python3 only).
+- Blank lines are added for human readability. Specifically these are added above Input and Process dictionaries, and between each Processor dictionary.
+
+You can also carry out reformatting of existing `yaml` recipes using the `yaml_tidy.py` script, or using `plistyamlplist` as in the following examples:
+
+- Convert an AutoPkg recipe to yaml format:
+
+  plistyamlplist /path/to/SomeRecipe.recipe
+
+- Reformat a single `yaml`-based recipe:
+
+  plistyamlplist /path/to/SomeRecipe.recipe.yaml --tidy
+
+- Reformat a an entire folder structure containing `yaml`-based recipes:
+
+  ```bash
+  plistyamlplist /path/to/YAML/ --tidy
+  # this will process all .recipe.yaml files in the folders within /path/to/YAML
+
+  plistyamlplist /path/to/\_YAML/ --tidy
+  # this will process all .recipe.yaml files in the folders within /path/to/_YAML
+
+  plistyamlplist /path/to/YAML/subfolder/ --tidy
+  # this will process all .recipe.yaml files in the folders within /path/to/_YAML/subfolder
+  ```
 
 ## Credits
 
