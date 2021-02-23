@@ -45,7 +45,7 @@ except ImportError:
 
 def convert(data):
     """Do the conversion."""
-    lines = write_plist(data).splitlines()
+    lines = write_plist(data).decode("utf-8").splitlines()
     lines.append("")
     return "\n".join(lines)
 

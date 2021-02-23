@@ -19,6 +19,7 @@ import glob
 from plistyamlplist_lib.plist_yaml import plist_yaml
 from plistyamlplist_lib.yaml_plist import yaml_plist
 from plistyamlplist_lib.json_plist import json_plist
+from plistyamlplist_lib.yaml_tidy import tidy_yaml
 
 
 def usage():
@@ -31,6 +32,9 @@ def usage():
     print(
         "If <input-file> ends in .yaml or .yml and <output-file> is omitted,\n"
         "<input-file>.yaml is converted to PLIST format with name <input-file>\n"
+    )
+    print(
+        "If <output-file> is --tidy,\n" "<input-file>.yaml is tidied up for AutoPkg.\n"
     )
 
 
@@ -160,7 +164,10 @@ def main():
                 out_path = sys.argv[2]
             if filetype == "yaml":
                 print("Processing yaml file...")
-                yaml_plist(in_path, out_path)
+                if out_path == "--tidy":
+                    tidy_yaml(in_path)
+                else:
+                    yaml_plist(in_path, out_path)
             elif filetype == "json":
                 print("Processing json file...")
                 json_plist(in_path, out_path)
@@ -169,10 +176,18 @@ def main():
     elif os.path.isdir(in_path) and "YAML" in in_path:
         print("Processing YAML folder...")
         filetype = "yaml"
-        for in_file in os.listdir(in_path):
-            in_file_path = os.path.join(in_path, in_file)
-            out_path = get_out_path(in_file_path, filetype)
-            yaml_plist(in_file_path, out_path)
+        if sys.argv[2] == "--tidy":
+            print("WARNING! Processing all subfolders...\n")
+            for root, dirs, files in os.walk(in_path):
+                for name in files:
+                    tidy_yaml(os.path.join(root, name))
+                for name in dirs:
+                    tidy_yaml(os.path.join(root, name))
+        else:
+            for in_file in os.listdir(in_path):
+                in_file_path = os.path.join(in_path, in_file)
+                out_path = get_out_path(in_file_path, filetype)
+                yaml_plist(in_file_path, out_path)
     elif os.path.isdir(in_path) and "JSON" in in_path:
         print("Processing JSON folder...")
         filetype = "json"
