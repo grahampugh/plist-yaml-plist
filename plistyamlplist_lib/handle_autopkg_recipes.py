@@ -51,6 +51,30 @@ def optimise_autopkg_recipes(recipe):
 def format_autopkg_recipes(output):
     """Add lines between Input and Process, and between multiple processes.
     This aids readability of yaml recipes"""
+    # add line before specific processors
     for item in ["Input:", "Process:", "- Processor:"]:
         output = output.replace(item, "\n" + item)
-    return output.replace("Process:\n\n-", "Process:\n-")
+
+    # remove line before first process
+    output = output.replace("Process:\n\n-", "Process:\n-")
+
+    # # convert quoted strings with newlines in them to scalars
+    recipe = []
+    lines = output.splitlines()
+    for line in lines:
+        if "\\n" in line:
+            spaces = len(line) - len(line.lstrip()) + 2
+            print(spaces)
+            space = " "
+            line = line.replace(': "', ": |\n{}".format(space * spaces))
+            line = line.replace("\\t", "    ")
+            line = line.replace('\\n"', "")
+            line = line.replace("\\n", "\n{}".format(space * spaces))
+            line = line.replace('\\"', '"')
+            if line[-1] == '"':
+                line[:-1]
+        print(line)
+        recipe.append(line)
+    recipe.append("")
+    print("\n".join(recipe))
+    return "\n".join(recipe)
