@@ -16,8 +16,7 @@ import sys
 from collections import OrderedDict
 
 try:
-    from plistlib import Data  # Python 3
-    from plistlib import load as load_plist
+    from plistlib import load as load_plist  # Python 3
 except ImportError:
     from plistlib import Data  # Python 2
     from plistlib import readPlist as load_plist
@@ -61,7 +60,9 @@ def normalize_types(input_data):
     However, this operation is irreversible. Only use if read-only
     access to the plist is required.
     """
-    if isinstance(input_data, Data):
+    if sys.version_info.major == 3 and isinstance(input_data, bytes):
+        return input_data
+    if sys.version_info.major == 2 and isinstance(input_data, Data):
         return input_data.data
     if isinstance(input_data, list):
         retval = []
