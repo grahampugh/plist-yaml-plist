@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [unreleased]
 
+Changes since last release will be listed here.
+
+## [v0.6.0] - 2021-02-23 - v0.6.0
+
+- When converting an AutoPkg recipe to `yaml` format, specific formatting is carried out:
+  - The different process dictionaries are ordered by Processor, Comment, Arguments.
+  - The Input dictionary is ordered such that NAME is always at the top.
+  - The items are ordered thus: Comment, Description, Identifier, ParentRecipe, MinimumVersion, Input, Process
+  - Blank lines are added for human readability. Specifically these are added above Input and Process dictionaries, and between each Processor dictionary.
+- You can use `yaml_tidy.py` to reformat existing `.recipe.yaml` files as above.
+- An entire directory structure can have `.recipe.yaml` files reformatted as above using the command `plistyamlplist /path/to/YAML --tidy`. Any directory with a `YAML` or `_YAML` folder in it will be processed, including subdirectories.
+
 ## [v0.5.0] - 2021-02-11 - v0.5.0
 
 - Switched from `pyyaml` to `ruamel.yaml`.
@@ -36,7 +48,8 @@ All notable changes to this project will be documented in this file. This projec
 
 - Initial Release (though the tool has been around for some time).
 
-[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.5.0...HEAD
+[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.6.0...HEAD
+[v0.6.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.3.1...v0.4.0
 [v0.3.1]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.3...v0.3.1
