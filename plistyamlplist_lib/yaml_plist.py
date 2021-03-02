@@ -55,19 +55,19 @@ def yaml_plist(in_path, out_path):
     try:
         in_file = open(in_path, "r")
     except IOError:
-        print("ERROR: {} not found".format(in_path))
+        print("ERROR: could not find " + in_path + "\n")
         return
     try:
         out_file = open(out_path, "w")
     except IOError:
-        print("ERROR: could not create {} ".format(out_path))
+        print("ERROR: could not create " + out_path + "\n")
         return
 
     input_data = yaml.safe_load(in_file)
     output = convert(input_data)
 
     out_file.writelines(output)
-    print("Wrote to : {}\n".format(out_path))
+    print("Written to " + out_path + "\n")
 
 
 def main():

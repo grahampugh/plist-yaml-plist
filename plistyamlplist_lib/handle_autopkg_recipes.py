@@ -58,10 +58,10 @@ def format_autopkg_recipes(output):
     # remove line before first process
     output = output.replace("Process:\n\n-", "Process:\n-")
 
-    # # convert quoted strings with newlines in them to scalars
     recipe = []
     lines = output.splitlines()
     for line in lines:
+        # convert quoted strings with newlines in them to scalars
         if "\\n" in line:
             spaces = len(line) - len(line.lstrip()) + 2
             print(spaces)
@@ -73,8 +73,12 @@ def format_autopkg_recipes(output):
             line = line.replace('\\"', '"')
             if line[-1] == '"':
                 line[:-1]
-        print(line)
+        # elif "%" in lines:
+        #  handle strings that have AutoPkg %percent% variables in them
+        # (these need to be quoted)
+
+        # print(line)
         recipe.append(line)
     recipe.append("")
-    print("\n".join(recipe))
+    # print("\n".join(recipe))
     return "\n".join(recipe)
