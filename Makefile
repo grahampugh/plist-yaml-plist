@@ -1,3 +1,5 @@
+$($(CURDIR)/versionbump.py)
+
 CURDIR := $(shell pwd)
 MUNKIPKG := /usr/local/bin/munkipkg
 PKG_ROOT := $(CURDIR)/pkg/plistyamlplist/payload

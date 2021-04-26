@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """If this script is run directly, it takes an input file and an output file
@@ -22,6 +22,10 @@ from plistyamlplist_lib.plist_yaml import plist_yaml
 from plistyamlplist_lib.yaml_plist import yaml_plist
 from plistyamlplist_lib.json_plist import json_plist
 from plistyamlplist_lib.yaml_tidy import tidy_yaml
+from plistyamlplist_lib.version import __version__
+
+
+VERSION = __version__
 
 
 def usage():
@@ -142,6 +146,9 @@ def get_out_path(in_path, filetype):
 
 def main():
     """get the command line inputs if running this script directly."""
+
+    print(f"plist-yaml-plist version {VERSION}")
+
     if len(sys.argv) < 2:
         usage()
         exit(1)
@@ -202,7 +209,7 @@ def main():
         elif os.path.isdir(sys.argv[2]):
             # allow batch replication of folder structure and conversion of yaml to plist
             # also copies other file types without conversion to the same place in the
-            #  hierarchy
+            # hierarchy
             out_path_base = os.path.abspath(sys.argv[2])
             print("Writing to {}".format(out_path_base))
             for root, dirs, files in os.walk(in_path):
