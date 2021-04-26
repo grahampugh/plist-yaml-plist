@@ -41,6 +41,7 @@ def optimise_autopkg_recipes(recipe):
         "MinimumVersion",
         "Input",
         "Process",
+        "ParentRecipeTrustInfo",
     ]
     desired_list = [k for k in desired_order if k in recipe]
     reordered_recipe = {k: recipe[k] for k in desired_list}
@@ -52,7 +53,7 @@ def format_autopkg_recipes(output):
     """Add lines between Input and Process, and between multiple processes.
     This aids readability of yaml recipes"""
     # add line before specific processors
-    for item in ["Input:", "Process:", "- Processor:"]:
+    for item in ["Input:", "Process:", "- Processor:", "ParentRecipeTrustInfo:"]:
         output = output.replace(item, "\n" + item)
 
     # remove line before first process
