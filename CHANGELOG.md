@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file. This projec
 
 Changes since last release will be listed here.
 
+## [v0.6.1] - 2021-04-26 - v0.6.1
+
+- Adding `ParentRecipeTrustInfo` to the `desired_order` dict so that when autopkg recipes are converted or tidied, the Trust Info is retained. Also adding this to the processors which gain a new line before them for readability (#10 - thanks to @smithjw).
+
 ## [v0.6.0] - 2021-02-23 - v0.6.0
 
 - When converting an AutoPkg recipe to `yaml` format, specific formatting is carried out:
@@ -48,7 +52,8 @@ Changes since last release will be listed here.
 
 - Initial Release (though the tool has been around for some time).
 
-[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.6.0...HEAD
+[unreleased]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.6.1...HEAD
+[v0.6.1]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/grahampugh/plist-yaml-plist/compare/v0.3.1...v0.4.0
