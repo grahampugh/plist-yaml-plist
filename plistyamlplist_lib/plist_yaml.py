@@ -27,12 +27,13 @@ try:
     from ruamel.yaml import add_representer
     from ruamel.yaml.nodes import MappingNode
 except ImportError:
-    subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
+    subprocess.check_call([sys.executable, "-m", "ensurepip"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
     subprocess.check_call(
         [
             sys.executable,
             "-m",
-            "pip",
+            "pip3",
             "install",
             "-U",
             "pip",
