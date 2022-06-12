@@ -58,19 +58,18 @@ def usage():
 def check_if_plist(in_path):
     """rather than restrict by filename, check if the file is a plist by
     reading the second line of the file for the PLIST declaration."""
+    is_plist = False
     with open(in_path) as fp:
         try:
             for i, line in enumerate(fp):
                 if i == 1:
                     # print line
-                    if line.find("PLIST 1.0") == -1:
-                        is_plist = False
-                    else:
+                    if line.find("PLIST 1.0") != -1:
                         is_plist = True
                 elif i > 2:
                     break
         except UnicodeDecodeError:
-            is_plist = False
+            pass
     return is_plist
 
 
