@@ -2,6 +2,7 @@ $($(CURDIR)/versionbump.py)
 
 CURDIR := $(shell pwd)
 MUNKIPKG := /usr/local/bin/munkipkg
+PYTHON_PATH := /usr/local/autopkg/python
 PKG_ROOT := $(CURDIR)/pkg/plistyamlplist/payload
 PKG_BUILD := $(CURDIR)/pkg/plistyamlplist/build
 PKG_VERSION := $(shell defaults read $(CURDIR)/pkg/plistyamlplist/build-info.plist version)
@@ -15,7 +16,7 @@ default : $(PKG_BUILD)/plistyamlplist-$(PKG_VERSION).pkg
 
 
 $(PKG_BUILD)/plistyamlplist-$(PKG_VERSION).pkg: $(objects)
-	cd $(CURDIR)/pkg && $(MUNKIPKG) plistyamlplist
+	cd $(CURDIR)/pkg && $(PYTHON_PATH) $(MUNKIPKG) plistyamlplist
 	open $(CURDIR)/pkg/plistyamlplist/build
 
 

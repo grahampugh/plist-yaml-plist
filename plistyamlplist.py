@@ -198,48 +198,51 @@ def main():
     elif os.path.isdir(in_path) and "YAML" in in_path:
         print("Processing YAML folder...")
         filetype = "yaml"
-        if sys.argv[2] == "--tidy":
-            print("WARNING! Processing all subfolders...\n")
-            for root, dirs, files in os.walk(in_path):
-                for name in files:
-                    tidy_yaml(os.path.join(root, name))
-                for name in dirs:
-                    tidy_yaml(os.path.join(root, name))
-        elif os.path.isdir(sys.argv[2]):
-            # allow batch replication of folder structure and conversion of yaml to plist
-            # also copies other file types without conversion to the same place in the
-            # hierarchy
-            out_path_base = os.path.abspath(sys.argv[2])
-            print("Writing to {}".format(out_path_base))
-            for root, dirs, files in os.walk(in_path):
-                for name in dirs:
-                    working_dir = os.path.join(out_path_base, name)
-                    if not os.path.isdir(working_dir):
-                        print("Creating new folder " + working_dir)
-                        os.mkdir(working_dir)
-                for name in files:
-                    source_path = os.path.join(root, name)
-                    print("In path: " + in_path)
-                    sub_path = re.sub(in_path, "", source_path)
-                    print("Subdirectory path: " + sub_path)
-                    filename, _ = os.path.splitext(
-                        os.path.join(out_path_base, sub_path)
-                    )
-                    print("Source path: " + source_path)
-                    if source_path.endswith(".yaml"):
-                        dest_path = filename + ".plist"
-                        print("Destination path for plist: " + dest_path)
-                        yaml_plist(source_path, dest_path)
-                    else:
-                        dest_path = os.path.join(os.path.join(out_path_base, sub_path))
-                        print("Destination path: " + dest_path)
-                        try:
-                            shutil.copy(source_path, dest_path)
-                            if os.path.isfile(dest_path):
-                                print("Written to " + dest_path + "\n")
-                        except IOError:
-                            print("ERROR: could not copy " + source_path + "\n")
-        else:
+        try:
+            if sys.argv[2] == "--tidy":
+                print("WARNING! Processing all subfolders...\n")
+                for root, dirs, files in os.walk(in_path):
+                    for name in files:
+                        tidy_yaml(os.path.join(root, name))
+                    for name in dirs:
+                        tidy_yaml(os.path.join(root, name))
+            elif os.path.isdir(sys.argv[2]):
+                # allow batch replication of folder structure and conversion of yaml to plist
+                # also copies other file types without conversion to the same place in the
+                # hierarchy
+                out_path_base = os.path.abspath(sys.argv[2])
+                print("Writing to {}".format(out_path_base))
+                for root, dirs, files in os.walk(in_path):
+                    for name in dirs:
+                        working_dir = os.path.join(out_path_base, name)
+                        if not os.path.isdir(working_dir):
+                            print("Creating new folder " + working_dir)
+                            os.mkdir(working_dir)
+                    for name in files:
+                        source_path = os.path.join(root, name)
+                        print("In path: " + in_path)
+                        sub_path = re.sub(in_path, "", source_path)
+                        print("Subdirectory path: " + sub_path)
+                        filename, _ = os.path.splitext(
+                            os.path.join(out_path_base, sub_path)
+                        )
+                        print("Source path: " + source_path)
+                        if source_path.endswith(".yaml"):
+                            dest_path = filename + ".plist"
+                            print("Destination path for plist: " + dest_path)
+                            yaml_plist(source_path, dest_path)
+                        else:
+                            dest_path = os.path.join(
+                                os.path.join(out_path_base, sub_path)
+                            )
+                            print("Destination path: " + dest_path)
+                            try:
+                                shutil.copy(source_path, dest_path)
+                                if os.path.isfile(dest_path):
+                                    print("Written to " + dest_path + "\n")
+                            except IOError:
+                                print("ERROR: could not copy " + source_path + "\n")
+        except IndexError:
             for in_file in os.listdir(in_path):
                 in_file_path = os.path.join(in_path, in_file)
                 out_path = get_out_path(in_file_path, filetype)
