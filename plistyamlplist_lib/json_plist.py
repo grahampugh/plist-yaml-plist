@@ -2,15 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """If this script is run directly, it takes an input file and an output file
-from the command lineThe input file must be in YAML format. The output file
-will be in PLIST format:
+from the command line.
+The input file must be in JSON format.
+The output file will be in PLIST format:
 
-yaml_plist.py <input-file> <output-file>
+json_plist.py <input-file> <output-file>
 
 The output file can be omitted, so long as the input file ends with .yaml.
 In this case, the name of the output file is
-taken from the input file, with .yaml removed from the end.
-For best results, the input file should therefore be named with
+taken from the input file, with .json removed from the end.
+For best results, the input file should therefore be named with .json as the suffix.
 """
 
 import json
