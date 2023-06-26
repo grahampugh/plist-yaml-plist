@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file. This projec
 
 Changes since last release will be listed here.
 
+- Fixed the installation of ruamel.yaml if not already present.
+
 ## [v0.6.3] - 2022-06-21 - v0.6.3
 
 - Fixed running on folders without a destination when converting from YAML to PLIST or vice versa.

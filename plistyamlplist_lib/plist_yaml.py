@@ -33,7 +33,7 @@ except ImportError:
         [
             sys.executable,
             "-m",
-            "pip3",
+            "pip",
             "install",
             "-U",
             "pip",
