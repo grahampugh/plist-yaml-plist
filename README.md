@@ -12,6 +12,7 @@ The python `ruamel.yaml` module is required, which is not installed by default o
 python -m ensurepip --user
 python -m pip install -U pip setuptools wheel ruamel.yaml --user
 ```
+
 If you do not pre-install `ruamel.yaml`, setup.py will do it for you.
 
 #### Local git repo install
@@ -19,8 +20,10 @@ If you do not pre-install `ruamel.yaml`, setup.py will do it for you.
 git clone git@github.com:grahampugh/plist-yaml-plist && cd plist-yaml-plist
 python -m pip install .
 ```
+
 #### Remote git repo install
 A github ssh key is required to run `pip install -r requirements.txt`.
+
 *requirements.txt*:
 ```txt
 -e git+ssh://git@github.com/grahampugh/plist-yaml-plist#egg=plistyamlplist
