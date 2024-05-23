@@ -8,9 +8,10 @@ It can also convert `json` files to `plist`.
 ### Prerequisites
 
 The python `ruamel.yaml` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first. A few other things need to be updated for ruamel to install:
+
 ```bash
 python -m ensurepip --user
-python -m pip install -U pip setuptools wheel ruamel.yaml --user
+python -m pip install -U pip setuptools wheel ruamel.yaml<0.18.0 --user
 ```
 
 If you do not pre-install `ruamel.yaml`, setup.py will do it for you.
