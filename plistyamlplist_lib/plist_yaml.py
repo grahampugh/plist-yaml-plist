@@ -95,20 +95,24 @@ def plist_yaml(in_path, out_path):
     """Convert plist to yaml."""
     with open(in_path, "rb") as in_file:
         input_data = load_plist(in_file)
+        output = recipe_from_dict(input_data)
+    
+    out_file.writelines(output)
+    print("Wrote to : {}\n".format(out_path))
 
+def recipe_from_dict(input_data: dict):
+    """Convert plist to yaml from string."""
     normalized = normalize_types(input_data)
 
     # handle conversion of AutoPkg recipes
-    if sys.version_info.major == 3 and in_path.endswith((".recipe", ".recipe.plist")):
+    if sys.version_info.major == 3 and input_data.get("name", "").endswith((".recipe", ".recipe.plist")):
         normalized = handle_autopkg_recipes.optimise_autopkg_recipes(normalized)
         output = convert(normalized)
         output = handle_autopkg_recipes.format_autopkg_recipes(output)
     else:
         output = convert(normalized)
 
-    out_file = open(out_path, "w")
-    out_file.writelines(output)
-    print("Wrote to : {}\n".format(out_path))
+    return output
 
 
 def main():
