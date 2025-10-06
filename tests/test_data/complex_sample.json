@@ -1,0 +1,46 @@
+{
+    "application": {
+        "name": "Complex Test App",
+        "version": "2.1.0",
+        "build": 42,
+        "features": [
+            "authentication",
+            "logging",
+            "monitoring"
+        ]
+    },
+    "configuration": {
+        "database": {
+            "host": "localhost",
+            "port": 5432,
+            "ssl": true,
+            "timeout": null
+        },
+        "cache": {
+            "enabled": true,
+            "size": 100,
+            "ttl": 3600
+        },
+        "logging": {
+            "level": "INFO",
+            "file": "/var/log/app.log",
+            "rotate": true,
+            "max_files": null
+        }
+    },
+    "metadata": {
+        "created": "2023-01-01T00:00:00Z",
+        "modified": null,
+        "tags": [
+            "production",
+            null,
+            "stable",
+            null
+        ],
+        "maintainer": {
+            "name": "Test User",
+            "email": "test@example.com",
+            "active": null
+        }
+    }
+}

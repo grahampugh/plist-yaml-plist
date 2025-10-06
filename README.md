@@ -132,6 +132,14 @@ You can also carry out reformatting of existing `yaml` recipes using the `yaml_t
   # this will process all .recipe.yaml files in the folders within /path/to/_YAML/subfolder
   ```
 
+## Testing
+
+This project includes unit tests to verify the core conversion functionality. To run these tests:
+
+```bash
+python -m unittest discover tests -v
+```
+
 ## Credits
 
 Elements of these scripts come from:

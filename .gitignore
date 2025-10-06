@@ -1,4 +1,32 @@
-.idea/*
+# IDE
+.idea/
+.vscode/
+
+# Editor
 *.swp
+*.swo
+*~
+
+# macOS
 .DS_Store
+
+# Python
 *.pyc
+*.pyo
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+.env
+env/
+
+# Build artifacts
+build/
+dist/
+*.pkg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml

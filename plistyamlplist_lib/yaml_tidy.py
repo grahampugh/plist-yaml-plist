@@ -40,24 +40,8 @@ except ImportError:
     from ruamel.yaml.constructor import DuplicateKeyError
 
 from . import handle_autopkg_recipes
-
-
-def represent_ordereddict(dumper, data):
-    value = []
-
-    for item_key, item_value in data.items():
-        node_key = dumper.represent_data(item_key)
-        node_value = dumper.represent_data(item_value)
-
-        value.append((node_key, node_value))
-
-    return MappingNode("tag:yaml.org,2002:map", value)
-
-
-def convert(xml):
-    """Do the conversion."""
-    add_representer(OrderedDict, represent_ordereddict)
-    return dump(xml, width=float("inf"), default_flow_style=False)
+from . import represent_ordereddict
+from . import convert_to_yaml
 
 
 def tidy_yaml(in_path, out_path=""):
@@ -67,13 +51,11 @@ def tidy_yaml(in_path, out_path=""):
         return
 
     try:
-        in_file = open(in_path, "r")
+        with open(in_path, "r") as in_file:
+            input_data = safe_load(in_file)
     except IOError:
         print("ERROR: {} not found".format(in_path))
         return
-
-    try:
-        input_data = safe_load(in_file)
     except DuplicateKeyError:
         print("ERROR: Duplicate key found in {}\n".format(in_path))
         return
@@ -81,21 +63,20 @@ def tidy_yaml(in_path, out_path=""):
     # handle conversion of AutoPkg recipes
     if sys.version_info.major == 3 and in_path.endswith(".recipe.yaml"):
         input_data = handle_autopkg_recipes.optimise_autopkg_recipes(input_data)
-        output = convert(input_data)
+        output = convert_to_yaml(input_data)
         output = handle_autopkg_recipes.format_autopkg_recipes(output)
     else:
-        output = convert(input_data)
+        output = convert_to_yaml(input_data)
 
     if not out_path:
         out_path = in_path
     try:
-        out_file = open(out_path, "w")
+        with open(out_path, "w") as out_file:
+            out_file.writelines(output)
+        print("Wrote to : {}\n".format(out_path))
     except IOError:
         print("ERROR: could not create {} ".format(out_path))
         return
-    else:
-        out_file.writelines(output)
-        print("Wrote to : {}\n".format(out_path))
 
 
 def main():

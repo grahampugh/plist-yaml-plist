@@ -4,12 +4,12 @@ All notable changes to this project will be documented in this file. This projec
 
 ## [unreleased]
 
-Changes since last release will be listed here.
+- Added unit tests to project.
 
 ## [v0.6.4] - 2022-06-21 - v0.6.4
 
 - Fixed the installation of ruamel.yaml if not already present.
-- Limit the ruamel.yaml version to less than 0.18.0, because newer versions are completely changed so will need more work to fix. Note that if you already have a newer version of ruamel.yaml in the python that you are using, it is advised to run the following command to remove it, after which running this script will reinstall a working version: 
+- Limit the ruamel.yaml version to less than 0.18.0, because newer versions are completely changed so will need more work to fix. Note that if you already have a newer version of ruamel.yaml in the python that you are using, it is advised to run the following command to remove it, after which running this script will reinstall a working version:
 
 ```
 /path/to/your/python -m pip uninstall ruamel.yaml

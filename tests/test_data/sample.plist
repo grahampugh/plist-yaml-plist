@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Test Application</string>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>enabled</key>
+	<true/>
+	<key>settings</key>
+	<dict>
+		<key>debug</key>
+		<false/>
+		<key>timeout</key>
+		<integer>30</integer>
+		<key>urls</key>
+		<array>
+			<string>https://example.com</string>
+			<string>https://test.com</string>
+		</array>
+	</dict>
+</dict>
+</plist>

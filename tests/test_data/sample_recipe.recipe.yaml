@@ -1,0 +1,23 @@
+Description: Sample AutoPkg Recipe for Testing
+Identifier: com.test.sample
+MinimumVersion: "2.0"
+Input:
+  OTHER_KEY: other_value
+  NAME: SampleApp
+Process:
+- Arguments:
+    source_path: /path/to/source
+    destination_path: /path/to/destination
+  Processor: Copier
+  Comment: Copy the application
+- Processor: CodeSignatureVerifier
+  Arguments:
+    input_path: /path/to/app
+    requirement: identifier "com.example.app"
+- Processor: PkgCreator
+  Arguments:
+    pkg_request:
+      id: com.example.pkg
+      version: "1.0"
+      pkgname: SampleApp
+  Comment: Create the package

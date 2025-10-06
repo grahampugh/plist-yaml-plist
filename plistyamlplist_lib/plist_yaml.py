@@ -48,18 +48,8 @@ except ImportError:
     from ruamel.yaml.nodes import MappingNode
 
 from . import handle_autopkg_recipes
-
-
-def represent_ordereddict(dumper, data):
-    value = []
-
-    for item_key, item_value in data.items():
-        node_key = dumper.represent_data(item_key)
-        node_value = dumper.represent_data(item_value)
-
-        value.append((node_key, node_value))
-
-    return MappingNode("tag:yaml.org,2002:map", value)
+from . import represent_ordereddict
+from . import convert_to_yaml
 
 
 def normalize_types(input_data):
@@ -85,12 +75,6 @@ def normalize_types(input_data):
     return input_data
 
 
-def convert(xml):
-    """Do the conversion."""
-    add_representer(OrderedDict, represent_ordereddict)
-    return dump(xml, width=float("inf"), default_flow_style=False)
-
-
 def plist_yaml(in_path, out_path):
     """Convert plist to yaml."""
     with open(in_path, "rb") as in_file:
@@ -101,13 +85,13 @@ def plist_yaml(in_path, out_path):
     # handle conversion of AutoPkg recipes
     if sys.version_info.major == 3 and in_path.endswith((".recipe", ".recipe.plist")):
         normalized = handle_autopkg_recipes.optimise_autopkg_recipes(normalized)
-        output = convert(normalized)
+        output = convert_to_yaml(normalized)
         output = handle_autopkg_recipes.format_autopkg_recipes(output)
     else:
-        output = convert(normalized)
+        output = convert_to_yaml(normalized)
 
-    out_file = open(out_path, "w")
-    out_file.writelines(output)
+    with open(out_path, "w") as out_file:
+        out_file.writelines(output)
     print("Wrote to : {}\n".format(out_path))
 
 

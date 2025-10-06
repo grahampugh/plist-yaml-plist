@@ -53,21 +53,21 @@ def convert(data):
 def yaml_plist(in_path, out_path):
     """Convert yaml to plist."""
     try:
-        in_file = open(in_path, "r")
+        with open(in_path, "r") as in_file:
+            input_data = yaml.safe_load(in_file)
     except IOError:
         print("ERROR: could not find " + in_path + "\n")
         return
+
+    output = convert(input_data)
+
     try:
-        out_file = open(out_path, "w")
+        with open(out_path, "w") as out_file:
+            out_file.writelines(output)
+        print("Written to " + out_path + "\n")
     except IOError:
         print("ERROR: could not create " + out_path + "\n")
         return
-
-    input_data = yaml.safe_load(in_file)
-    output = convert(input_data)
-
-    out_file.writelines(output)
-    print("Written to " + out_path + "\n")
 
 
 def main():

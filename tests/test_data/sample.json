@@ -1,0 +1,13 @@
+{
+    "name": "Test Application",
+    "version": "1.0.0",
+    "enabled": true,
+    "settings": {
+        "debug": false,
+        "timeout": 30,
+        "urls": [
+            "https://example.com",
+            "https://test.com"
+        ]
+    }
+}

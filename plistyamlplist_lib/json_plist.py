@@ -52,16 +52,15 @@ def json_plist(in_path, out_path):
     except IOError:
         print("ERROR: {} not found".format(in_path))
         return
+    output = convert(input_data)
+
     try:
-        out_file = open(out_path, "w")
+        with open(out_path, "w") as out_file:
+            out_file.writelines(output)
+        print("Wrote to : {}\n".format(out_path))
     except IOError:
         print("ERROR: could not create {} ".format(out_path))
         return
-
-    output = convert(input_data)
-
-    out_file.writelines(output)
-    print("Wrote to : {}\n".format(out_path))
 
 
 def main():
