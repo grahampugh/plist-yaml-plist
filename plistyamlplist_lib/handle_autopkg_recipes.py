@@ -73,7 +73,7 @@ def format_autopkg_recipes(output):
             line = line.replace("\\n", f"\n{space * spaces}")
             line = line.replace('\\"', '"')
             if line[-1] == '"':
-                line[:-1]
+                line = line[:-1]
         # elif "%" in lines:
         # handle strings that have AutoPkg %percent% variables in them
         # (these need to be quoted)
