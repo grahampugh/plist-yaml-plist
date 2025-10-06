@@ -13,11 +13,8 @@ The output file can be omitted. In this case, the input file will be overwritten
 import subprocess
 import sys
 
-from collections import OrderedDict
-
 try:
-    from ruamel.yaml import dump, safe_load, add_representer
-    from ruamel.yaml.nodes import MappingNode
+    from ruamel.yaml import safe_load
     from ruamel.yaml.constructor import DuplicateKeyError
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "ensurepip", "--user"])
@@ -35,29 +32,27 @@ except ImportError:
             "--user",
         ]
     )
-    from ruamel.yaml import dump, safe_load, add_representer
-    from ruamel.yaml.nodes import MappingNode
+    from ruamel.yaml import safe_load
     from ruamel.yaml.constructor import DuplicateKeyError
 
 from . import handle_autopkg_recipes
-from . import represent_ordereddict
 from . import convert_to_yaml
 
 
 def tidy_yaml(in_path, out_path=""):
     """Tidy up yaml file."""
     if not in_path.endswith(".yaml"):
-        print("Not processing {}\n".format(in_path))
+        print(f"Not processing {in_path}\n")
         return
 
     try:
-        with open(in_path, "r") as in_file:
+        with open(in_path, "r", encoding="utf-8") as in_file:
             input_data = safe_load(in_file)
     except IOError:
-        print("ERROR: {} not found".format(in_path))
+        print(f"ERROR: {in_path} not found")
         return
     except DuplicateKeyError:
-        print("ERROR: Duplicate key found in {}\n".format(in_path))
+        print(f"ERROR: Duplicate key found in {in_path}\n")
         return
 
     # handle conversion of AutoPkg recipes
@@ -71,11 +66,11 @@ def tidy_yaml(in_path, out_path=""):
     if not out_path:
         out_path = in_path
     try:
-        with open(out_path, "w") as out_file:
+        with open(out_path, "w", encoding="utf-8") as out_file:
             out_file.writelines(output)
-        print("Wrote to : {}\n".format(out_path))
+        print(f"Wrote to : {out_path}\n")
     except IOError:
-        print("ERROR: could not create {} ".format(out_path))
+        print(f"ERROR: could not create {out_path}")
         return
 
 
@@ -89,7 +84,7 @@ def main():
 
     try:
         sys.argv[2]
-    except Exception:
+    except IndexError:
         out_path = in_path
     else:
         out_path = sys.argv[2]

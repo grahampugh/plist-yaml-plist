@@ -27,11 +27,11 @@ def optimise_autopkg_recipes(recipe):
         recipe["Process"] = new_process
 
     if "Input" in recipe:
-        input = recipe["Input"]
-        if "NAME" in input:
-            input = OrderedDict(reversed(list(input.items())))
-            input.move_to_end("NAME")
-        recipe["Input"] = OrderedDict(reversed(list(input.items())))
+        input_list = recipe["Input"]
+        if "NAME" in input_list:
+            input_list = OrderedDict(reversed(list(input_list.items())))
+            input_list.move_to_end("NAME")
+        recipe["Input"] = OrderedDict(reversed(list(input_list.items())))
 
     desired_order = [
         "Comment",
@@ -67,15 +67,15 @@ def format_autopkg_recipes(output):
             spaces = len(line) - len(line.lstrip()) + 2
             print(spaces)
             space = " "
-            line = line.replace(': "', ": |\n{}".format(space * spaces))
+            line = line.replace(': "', f": |\n{space * spaces}")
             line = line.replace("\\t", "    ")
             line = line.replace('\\n"', "")
-            line = line.replace("\\n", "\n{}".format(space * spaces))
+            line = line.replace("\\n", f"\n{space * spaces}")
             line = line.replace('\\"', '"')
             if line[-1] == '"':
                 line[:-1]
         # elif "%" in lines:
-        #  handle strings that have AutoPkg %percent% variables in them
+        # handle strings that have AutoPkg %percent% variables in them
         # (these need to be quoted)
 
         # print(line)

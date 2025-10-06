@@ -53,7 +53,7 @@ def convert(data):
 def yaml_plist(in_path, out_path):
     """Convert yaml to plist."""
     try:
-        with open(in_path, "r") as in_file:
+        with open(in_path, "r", encoding="utf-8") as in_file:
             input_data = yaml.safe_load(in_file)
     except IOError:
         print("ERROR: could not find " + in_path + "\n")
@@ -62,7 +62,7 @@ def yaml_plist(in_path, out_path):
     output = convert(input_data)
 
     try:
-        with open(out_path, "w") as out_file:
+        with open(out_path, "w", encoding="utf-8") as out_file:
             out_file.writelines(output)
         print("Written to " + out_path + "\n")
     except IOError:
@@ -79,7 +79,7 @@ def main():
     in_path = sys.argv[1]
     try:
         sys.argv[2]
-    except Exception:
+    except IndexError:
         if in_path.endswith(".yaml"):
             filename, _ = os.path.splitext(in_path)
             out_path = filename

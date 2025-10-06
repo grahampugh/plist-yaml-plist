@@ -52,14 +52,14 @@ def usage():
         "all yaml files in the subfolders will be converted to plist in\n"
         "the corresponding subfolder structure under the <output> folder."
     )
-    print("If <output> is --tidy,\n" "<input>.yaml is tidied up for AutoPkg.\n")
+    print("If <output> is --tidy,\n<input>.yaml is tidied up for AutoPkg.\n")
 
 
 def check_if_plist(in_path):
     """rather than restrict by filename, check if the file is a plist by
     reading the second line of the file for the PLIST declaration."""
     is_plist = False
-    with open(in_path) as fp:
+    with open(in_path, encoding="utf-8") as fp:
         try:
             for i, line in enumerate(fp):
                 if i == 1:
@@ -82,35 +82,36 @@ def check_for_yaml_folder(check_path):
     yaml_folders = ["_YAML", "YAML"]
     for yf in yaml_folders:
         if yf in check_abspath:
-            print("{} folder exists : {}".format(yf, check_abspath))
+            print(f"{yf} folder exists : {check_abspath}")
             top_path, base_path = check_abspath.split("{}/".format(yf))
             out_path = os.path.dirname(os.path.join(top_path, base_path))
             if os.path.exists(out_path):
-                print("Path exists : {}".format(out_path))
+                print(f"Path exists : {out_path}")
                 return out_path
             else:
-                print("Path does not exist : {}".format(out_path))
+                print(f"Path does not exist: {out_path}")
                 print("Please create this folder and try again")
                 exit(1)
 
 
 def check_for_json_folder(check_path):
-    """Check folder hierarchy for a JSON or _JSON folder. Output to same folder structure outwith JSON
-    folder if it exists,
-    e.g. /path/to/JSON/folder/subfolder/my.plist.json ==> /path/to/folder/subfolder/my.plist
-    Note there is no reverse option at this time"""
+    """Check folder hierarchy for a JSON or _JSON folder. Output to the same folder
+    structure outside the JSON folder if it exists.
+    Example:
+    /path/to/JSON/folder/subfolder/my.plist.json ==> /path/to/folder/subfolder/my.plist
+    Note: There is no reverse option at this time."""
     check_abspath = os.path.abspath(check_path)
     json_folders = ["_JSON", "JSON"]
     for jf in json_folders:
         if jf in check_abspath:
-            print("{} folder exists : {}".format(jf, check_abspath))
+            print(f"{jf} folder exists : {check_abspath}")
             top_path, base_path = check_abspath.split("{}/".format(jf))
             out_path = os.path.dirname(os.path.join(top_path, base_path))
             if os.path.exists(out_path):
-                print("Path exists : {}".format(out_path))
+                print(f"Path exists : {out_path}")
                 return out_path
             else:
-                print("Path does not exist : {}".format(out_path))
+                print(f"Path does not exist: {out_path}")
                 print("Please create this folder and try again")
                 exit(1)
 

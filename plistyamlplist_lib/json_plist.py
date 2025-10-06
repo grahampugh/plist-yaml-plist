@@ -47,19 +47,19 @@ def convert(data):
 def json_plist(in_path, out_path):
     """Convert json to plist."""
     try:
-        with open(in_path, "r") as fp:
+        with open(in_path, "r", encoding="utf-8") as fp:
             input_data = json.load(fp)
     except IOError:
-        print("ERROR: {} not found".format(in_path))
+        print(f"ERROR: {in_path} not found")
         return
     output = convert(input_data)
 
     try:
-        with open(out_path, "w") as out_file:
+        with open(out_path, "w", encoding="utf-8") as out_file:
             out_file.writelines(output)
-        print("Wrote to : {}\n".format(out_path))
+        print(f"Wrote to: {out_path}\n")
     except IOError:
-        print("ERROR: could not create {} ".format(out_path))
+        print(f"ERROR: could not create {out_path}")
         return
 
 
@@ -72,8 +72,8 @@ def main():
     in_path = sys.argv[1]
     try:
         sys.argv[2]
-    except Exception as e:
-        print(e)  # TODO - temp to determine correct exception
+    except IndexError:
+        print("Output file not specified and input file does not end with .json")
         if in_path.endswith(".json"):
             filename, _ = os.path.splitext(in_path)
             out_path = filename

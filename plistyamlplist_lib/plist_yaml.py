@@ -11,10 +11,7 @@ The output file can be omitted. In this case, the name of the output file is
 taken from the input file, with .yaml added to the end.
 """
 
-import subprocess
 import sys
-
-from collections import OrderedDict
 
 try:
     from plistlib import load as load_plist  # Python 3
@@ -22,33 +19,7 @@ except ImportError:
     from plistlib import Data  # Python 2
     from plistlib import readPlist as load_plist
 
-try:
-    from ruamel.yaml import dump
-    from ruamel.yaml import add_representer
-    from ruamel.yaml.nodes import MappingNode
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "ensurepip"])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
-    subprocess.check_call(
-        [
-            sys.executable,
-            "-m",
-            "pip",
-            "install",
-            "-U",
-            "pip",
-            "setuptools",
-            "wheel",
-            "ruamel.yaml<0.18.0",
-            "--user",
-        ]
-    )
-    from ruamel.yaml import dump
-    from ruamel.yaml import add_representer
-    from ruamel.yaml.nodes import MappingNode
-
 from . import handle_autopkg_recipes
-from . import represent_ordereddict
 from . import convert_to_yaml
 
 
@@ -60,6 +31,7 @@ def normalize_types(input_data):
     """
     if sys.version_info.major == 3 and isinstance(input_data, bytes):
         return input_data
+    # pylint: disable=used-before-assignment
     if sys.version_info.major == 2 and isinstance(input_data, Data):
         return input_data.data
     if isinstance(input_data, list):
@@ -90,9 +62,9 @@ def plist_yaml(in_path, out_path):
     else:
         output = convert_to_yaml(normalized)
 
-    with open(out_path, "w") as out_file:
+    with open(out_path, "w", encoding="utf-8") as out_file:
         out_file.writelines(output)
-    print("Wrote to : {}\n".format(out_path))
+    print(f"Wrote to : {out_path}\n")
 
 
 def main():
@@ -105,8 +77,8 @@ def main():
 
     try:
         sys.argv[2]
-    except Exception:
-        out_path = "%s.yaml" % in_path
+    except IndexError:
+        out_path = f"{in_path}.yaml"
     else:
         out_path = sys.argv[2]
 
