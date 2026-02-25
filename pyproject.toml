@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "plistyamlplist"
+version = "0.6.4"
+description = "A tool to convert between plist and yaml formats"
+authors = [
+    { name="Graham Pugh", email="your.email@example.com" }
+]
+dependencies = [
+    "ruamel-yaml<0.18.0",
+]
+
+[project.scripts]
+plistyamlplist = "plistyamlplist:main"
+
+[tool.hatch.build.targets.wheel]
+# section is needed "to determine which files to ship inside the wheel...
+# ...most likely cause of this is that there is no directory that matches the name of your project (plist_yaml_plist).".
+# uv docs and tutorials recommend placing modules in tree under src/<project-name>/ but keeping...
+# ...as is to avoid changing other management systems for now.
+packages = ["plistyamlplist_lib"]
+[tool.hatch.build.targets.wheel.force-include]
+"plistyamlplist.py" = "plistyamlplist.py"
