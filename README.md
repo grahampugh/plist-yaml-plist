@@ -34,10 +34,11 @@ git clone git@github.com:grahampugh/plist-yaml-plist && cd plist-yaml-plist
 python -m pip install .
 ```
 
-#### uv-managed build and install
+#### Local git repo clone + uv-managed install
 ```
+mkdir -p $HOME/dev && cd $HOME/dev
+git clone https://github.com/grahampugh/plist-yaml-plist && cd plist-yaml-plist
 uv tool install .
-source $HOME/.zshenv
 ```
 
 #### Remote git repo install
