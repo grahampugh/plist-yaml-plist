@@ -5,6 +5,8 @@ This utility is designed to convert Apple `plist` files to `yaml`, or `yaml` fil
 It can also convert `json` files to `plist`.
 
 ## Installation
+
+
 ### Prerequisites
 
 The python `ruamel.yaml` module is required, which is not installed by default on Macs. You can install it with `pip`, which you may also need to install first. A few other things need to be updated for ruamel to install:
@@ -16,10 +18,27 @@ python -m pip install -U pip setuptools wheel ruamel.yaml<0.18.0 --user
 
 If you do not pre-install `ruamel.yaml`, setup.py will do it for you.
 
+
+#### Prerequisites-alternative: uv managed install
+
+install uv if needed first (using cURL)
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+```
+
+
 #### Local git repo install
 ```bash
 git clone git@github.com:grahampugh/plist-yaml-plist && cd plist-yaml-plist
 python -m pip install .
+```
+
+#### Local git repo clone + uv-managed install
+```
+mkdir -p $HOME/dev && cd $HOME/dev
+git clone https://github.com/grahampugh/plist-yaml-plist && cd plist-yaml-plist
+uv tool install .
 ```
 
 #### Remote git repo install
