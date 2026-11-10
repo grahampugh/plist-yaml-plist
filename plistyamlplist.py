@@ -155,7 +155,7 @@ def main():
     in_path = sys.argv[1]
 
     # auto-determine which direction the conversion should go
-    if in_path.endswith(".yaml") or in_path.endswith(".yaml"):
+    if in_path.endswith(".yaml") or in_path.endswith(".yml"):
         filetype = "yaml"
     elif in_path.endswith(".json"):
         filetype = "json"
